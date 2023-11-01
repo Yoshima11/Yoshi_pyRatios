@@ -49,7 +49,7 @@ def main(page: ft.Page):
     page.add(
         contenedor,
     )
-flet_path ='app'
-flet_port = 8502
-ft.app(name=flet_path, target=main, port=flet_port)
-#ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+#flet_path ='app'
+#flet_port = 8502
+#ft.app(name=flet_path, target=main, port=flet_port)
+ft.app(target=main, view=ft.AppView.WEB_BROWSER)
