@@ -12,10 +12,22 @@ def main(page: ft.Page):
     page.title = "Calculador de Ratios"
     page.horizontal_alignment = 'center'
     page.vertical_alignment = "top"
-    page.window_width = 950
-    page.window_height = 100
 
     def calcula_ratio(e):
+        '''
+        if ticker1.value == "dolar" :
+            historico_activo1 = fall.ambito.dolar_oficial(str(fecha_ini.value), str(fecha_fin.value))
+        elif ticker1.value == "blue" :
+            historico_activo1 = fall.ambito.dolar_blue(str(fecha_ini.value), str(fecha_fin.value))
+        else:
+            historico_activo1 = fall.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
+        if ticker2.value == "dolar" :
+            historico_activo2 = fall.ambito.dolar_oficial(str(fecha_ini.value), str(fecha_fin.value))
+        elif ticker2.value == "blue" :
+            historico_activo2 = fall.ambito.dolar_blue(str(fecha_ini.value), str(fecha_fin.value))
+        else:
+            historico_activo2 = fall.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
+        '''
         historico_activo1 = fall.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
         historico_activo2 = fall.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
@@ -26,7 +38,7 @@ def main(page: ft.Page):
 
     ticker1 = ft.TextField(label='Ticker 1', width=130, value='AL30')
     ticker2 = ft.TextField(label='Ticker 2', width=130, value='AL30D')
-    fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)', width=200, value='2020-01-01')
+    fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)', width=200, value='2022-01-01')
     fecha_fin = ft.TextField(label='Fecha Hasta (aaaa-mm-dd)', width=200, value=hoy)
     boton = ft.TextButton('Calcular Ratio', width=200, on_click=calcula_ratio)
 
