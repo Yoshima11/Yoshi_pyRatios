@@ -22,8 +22,7 @@ jobs:
       run: |
         conda env update --file environment.yml --name base
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install flet
-        python -m pip install Fallen
+        pip install -r requirements.txt
     - name: Lint with flake8
       run: |
         conda install flake8
