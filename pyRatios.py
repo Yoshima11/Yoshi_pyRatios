@@ -1,4 +1,4 @@
-import Fallen as fall
+import Fallen as fa
 import datetime as dt
 import pandas as pd
 import plotly.express as px
@@ -10,39 +10,60 @@ def main(page: ft.Page):
     hoy = dt.date.today()
     fig = px.line()
     page.title = "Calculador de Ratios"
-    page.horizontal_alignment = 'center'
-    page.vertical_alignment = "top"
+    page.horizontal_alignment = 'CENTER'
+    page.vertical_alignment = "TOP"
+
+    alerta = ft.AlertDialog(
+        title=ft.Text("¡Error en los datos ingresados!\nTicker no válido")
+    )
+
+    def cerrar_alerta(e):
+        alerta.open = False
+        page.update()
+
+    def abrir_alerta(e):
+        page.dialog = alerta
+        alerta.open = True
+        page.update()
+
+    def habilitar_controles():
+        progreso.visible = False
+        datos.disabled = False
+        page.update()
 
     def calcula_ratio(e):
-        '''
-        if ticker1.value == "dolar" :
-            historico_activo1 = fall.ambito.dolar_oficial(str(fecha_ini.value), str(fecha_fin.value))
-        elif ticker1.value == "blue" :
-            historico_activo1 = fall.ambito.dolar_blue(str(fecha_ini.value), str(fecha_fin.value))
-        else:
-            historico_activo1 = fall.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
-        if ticker2.value == "dolar" :
-            historico_activo2 = fall.ambito.dolar_oficial(str(fecha_ini.value), str(fecha_fin.value))
-        elif ticker2.value == "blue" :
-            historico_activo2 = fall.ambito.dolar_blue(str(fecha_ini.value), str(fecha_fin.value))
-        else:
-            historico_activo2 = fall.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
-        '''
-        historico_activo1 = fall.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
-        historico_activo2 = fall.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
+        progreso.visible = True
+        datos.disabled = True
+        page.update()
+        try:
+            historico_activo1 =  fa.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
+        except:
+            abrir_alerta(e)
+            habilitar_controles()
+            return
+        try:
+            historico_activo2 =  fa.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
+        except:
+            abrir_alerta(e)
+            habilitar_controles()
+            return    
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
-        fig = px.line(ratio, x='date', y='ratio')
-        fig.add_hline(ratio['ratio'].mean())
+        titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
+        fig = px.line(ratio, x='date', y='ratio', title=titulo)
+        fig.add_hline(ratio['ratio'].mean(),)
         fig.show()
+        habilitar_controles()
 
+    espacio = ft.Container(width=70)
     ticker1 = ft.TextField(label='Ticker 1', width=130, value='AL30')
     ticker2 = ft.TextField(label='Ticker 2', width=130, value='AL30D')
     fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)', width=200, value='2022-01-01')
     fecha_fin = ft.TextField(label='Fecha Hasta (aaaa-mm-dd)', width=200, value=hoy)
-    boton = ft.TextButton('Calcular Ratio', width=200, on_click=calcula_ratio)
+    boton = ft.OutlinedButton('Calcular Ratio', width=200, on_click=calcula_ratio)
 
     filas_datos = ft.Row(controls=[
+        espacio,
         ticker1,
         ticker2,
         fecha_ini,
@@ -51,9 +72,13 @@ def main(page: ft.Page):
     ])
 
     datos = ft.Container(filas_datos)
+    progreso = ft.ProgressBar(width=1000,visible=False)
 
     col = ft.Column(controls=[
+        ft.Text("Calculadora de Ratios\n", size=25, color=ft.colors.WHITE, text_align='CENTER',weight=1000),
         datos,
+        progreso,
+        ft.Text("Los tickers de los distintos tipos de dolar son:\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL", size=15, color=ft.colors.WHITE),
     ])
 
     contenedor = ft.Container(col)
