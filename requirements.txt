@@ -1,2 +1,5 @@
-flet==0.4.0
-Fallen==0.5.1
+Fallen
+datetime
+pandas
+plotly.express
+flet
