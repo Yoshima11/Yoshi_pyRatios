@@ -1,5 +1,4 @@
 import datetime as dt
-import pandas as pd
 import Fallen as fa
 import plotly.express as px
 import flet as ft
