@@ -1,4 +1,3 @@
-import sys
 import datetime as dt
 import Fallen as fa
 import plotly.express as px
