@@ -1,3 +1,4 @@
+import sys
 import datetime as dt
 import Fallen as fa
 import plotly.express as px
@@ -74,13 +75,13 @@ def main(page: ft.Page):
                               on_click=calcula_ratio)
 
     filas_datos = ft.Row(controls=[
-        espacio,
-        ticker1,
-        ticker2,
-        fecha_ini,
-        fecha_fin,
-        boton
-    ])  
+                         espacio,
+                         ticker1,
+                         ticker2,
+                         fecha_ini,
+                         fecha_fin,
+                         boton,
+                         ])  
 
     datos = ft.Container(filas_datos)
     progreso = ft.ProgressBar(width=1000,visible=False)
