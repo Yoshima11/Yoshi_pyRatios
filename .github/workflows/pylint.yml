@@ -21,4 +21,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint --py3k $(git ls-files '*.py')
+        pylint --confidence=INFERENCE $(git ls-files '*.py')
