@@ -13,11 +13,7 @@ def main(page: ft.Page):
     alerta = ft.AlertDialog(
         title=ft.Text("¡Error en los datos ingresados!\nTicker no válido")
     )
-
-    def cerrar_alerta():
-        alerta.open = False
-        page.update()
-
+    
     def abrir_alerta():
         page.dialog = alerta
         alerta.open = True
