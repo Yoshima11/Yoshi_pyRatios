@@ -74,14 +74,13 @@ def main(page: ft.Page):
                               width=200,
                               on_click=calcula_ratio)
 
-    filas_datos = ft.Row(controls=[
-                         espacio,
-                         ticker1,
-                         ticker2,
-                         fecha_ini,
-                         fecha_fin,
-                         boton,
-                         ])  
+    filas_datos = ft.Row(controls=[espacio,
+                                   ticker1,
+                                   ticker2,
+                                   fecha_ini,
+                                   fecha_fin,
+                                   boton,
+                                   ])  
 
     datos = ft.Container(filas_datos)
     progreso = ft.ProgressBar(width=1000,visible=False)
