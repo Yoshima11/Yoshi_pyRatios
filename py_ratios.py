@@ -33,18 +33,25 @@ def main(page: ft.Page):
         progreso.visible = True
         datos.disabled = True
         page.update()
+
         try:
-            historico_activo1 =  fa.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
+            historico_activo1 =  fa.rava.get_history(ticker1.value,
+                                                    fecha_ini.value,
+                                                    fecha_fin.value,)
         except:
             abrir_alerta()
             habilitar_controles()
             return
+
         try:
-            historico_activo2 =  fa.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
+            historico_activo2 =  fa.rava.get_history(ticker2.value,
+                                                    fecha_ini.value,
+                                                    fecha_fin.value,)
         except:
             abrir_alerta()
             habilitar_controles()
-            return    
+            return
+
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
         titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
