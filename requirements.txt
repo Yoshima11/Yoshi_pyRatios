@@ -20,7 +20,7 @@ httpx==0.24.1
 idna==3.4
 Jinja2==3.1.2
 jinja2-ansible-filters==1.3.2
-Mako @ file:///buildstream-build
+Mako
 Markdown @ file:///buildstream-build
 MarkupSafe @ file:///buildstream-build
 meson==0.63.3
