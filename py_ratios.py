@@ -80,7 +80,8 @@ def main(page: ft.Page):
                                    fecha_ini,
                                    fecha_fin,
                                    boton,
-                                   ])  
+                                   ]
+                        )  
 
     datos = ft.Container(filas_datos)
     progreso = ft.ProgressBar(width=1000,visible=False)
