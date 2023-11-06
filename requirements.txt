@@ -1,5 +1,7 @@
 Fallen
 datetime
 pandas
+plotly
 plotly.express
-flet
+flet==0.11.0
+dash
