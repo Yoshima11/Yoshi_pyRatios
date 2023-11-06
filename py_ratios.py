@@ -7,7 +7,7 @@ import flet as ft
 
 def main(page: ft.Page):
     hoy = dt.date.today()
-    fig = px.line()
+    #fig = px.line()
     page.title = "Calculador de Ratios"
     page.horizontal_alignment = 'CENTER'
     page.vertical_alignment = "TOP"
