@@ -1,6 +1,6 @@
-import Fallen as fa
 import datetime as dt
 import pandas as pd
+import Fallen as fa
 import plotly.express as px
 import flet as ft
 
@@ -13,7 +13,7 @@ def main(page: ft.Page):
     alerta = ft.AlertDialog(
         title=ft.Text("¡Error en los datos ingresados!\nTicker no válido")
     )
-    
+
     def abrir_alerta():
         page.dialog = alerta
         alerta.open = True
