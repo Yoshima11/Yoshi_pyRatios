@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import flet as ft
 from flet import *
-from flet.plotly_chart import PlotlyChart
+#from flet.plotly_chart import PlotlyChart
 
 def main(page: ft.Page):
     hoy = dt.date.today()
