@@ -1,13 +1,12 @@
 import Fallen as fa
 import datetime as dt
 import pandas as pd
-#import plotly.express as px
+import plotly.express as px
 import flet as ft
-#from flet import Container, TextButton, TextField, Text, ProgressBar, ElevatedButton, OutlinedButton, AlertDialog, Row, Column
 
 def main(page: ft.Page):
     hoy = dt.date.today()
-    #fig = px.line()
+    fig = px.line()
     page.title = "Calculador de Ratios"
     page.horizontal_alignment = 'CENTER'
     page.vertical_alignment = "TOP"
@@ -16,11 +15,11 @@ def main(page: ft.Page):
         title=ft.Text("¡Error en los datos ingresados!\nTicker no válido")
     )
 
-    def cerrar_alerta(e):
+    def cerrar_alerta():
         alerta.open = False
         page.update()
 
-    def abrir_alerta(e):
+    def abrir_alerta():
         page.dialog = alerta
         alerta.open = True
         page.update()
@@ -37,21 +36,21 @@ def main(page: ft.Page):
         try:
             historico_activo1 =  fa.rava.get_history(ticker1.value, fecha_ini.value, fecha_fin.value)
         except:
-            abrir_alerta(e)
+            abrir_alerta()
             habilitar_controles()
             return
         try:
             historico_activo2 =  fa.rava.get_history(ticker2.value, fecha_ini.value, fecha_fin.value)
         except:
-            abrir_alerta(e)
+            abrir_alerta()
             habilitar_controles()
             return    
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
         titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
-        #fig = px.line(ratio, x='date', y='ratio', title=titulo)
-        #fig.add_hline(ratio['ratio'].mean(),)
-        #fig.show()
+        fig = px.line(ratio, x='date', y='ratio', title=titulo)
+        fig.add_hline(ratio['ratio'].mean(),)
+        fig.show()
         habilitar_controles()
 
     espacio = ft.Container(width=70)
@@ -77,7 +76,10 @@ def main(page: ft.Page):
         ft.Text("Calculadora de Ratios\n", size=25, color=ft.colors.WHITE, text_align='CENTER',weight=1000),
         datos,
         progreso,
-        ft.Text("Los tickers de los distintos tipos de dolar son:\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL", size=15, color=ft.colors.WHITE),
+        ft.Text("Los tickers de los distintos tipos de dolar son:\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL",
+                size=15,
+                color=ft.colors.WHITE,
+                ),
     ])
 
     contenedor = ft.Container(col)
