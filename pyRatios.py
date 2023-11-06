@@ -1,7 +1,7 @@
 import Fallen as fa
 import datetime as dt
 import pandas as pd
-import plotly.express as px
+#import plotly.express as px
 import flet as ft
 from flet import Container, TextButton, TextField, Text, ProgressBar, ElevatedButton, OutlinedButton, AlertDialog, Row, Column
 
@@ -49,9 +49,9 @@ def main(page: ft.Page):
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
         titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
-        fig = px.line(ratio, x='date', y='ratio', title=titulo)
-        fig.add_hline(ratio['ratio'].mean(),)
-        fig.show()
+        #fig = px.line(ratio, x='date', y='ratio', title=titulo)
+        #fig.add_hline(ratio['ratio'].mean(),)
+        #fig.show()
         habilitar_controles()
 
     espacio = ft.Container(width=70)
