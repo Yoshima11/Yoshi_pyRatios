@@ -38,6 +38,7 @@ def main(page: ft.Page):
             historico_activo1 =  fa.rava.get_history(ticker1.value,
                                                     fecha_ini.value,
                                                     fecha_fin.value,)
+
         except:
             abrir_alerta()
             habilitar_controles()
@@ -47,6 +48,7 @@ def main(page: ft.Page):
             historico_activo2 =  fa.rava.get_history(ticker2.value,
                                                     fecha_ini.value,
                                                     fecha_fin.value,)
+                                                    
         except:
             abrir_alerta()
             habilitar_controles()
@@ -84,7 +86,7 @@ def main(page: ft.Page):
         fecha_ini,
         fecha_fin,
         boton
-    ])
+    ])  
 
     datos = ft.Container(filas_datos)
     progreso = ft.ProgressBar(width=1000,visible=False)
@@ -97,7 +99,8 @@ def main(page: ft.Page):
                 weight=1000,),
         datos,
         progreso,
-        ft.Text("Los tickers de los distintos tipos de dolar son:\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL",
+        ft.Text('Los tickers de los distintos tipos de dolar son:'\
+                '\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL',
                 size=15,
                 color=ft.colors.WHITE,
                 ),
