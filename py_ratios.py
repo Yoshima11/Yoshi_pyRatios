@@ -61,11 +61,21 @@ def main(page: ft.Page):
         habilitar_controles()
 
     espacio = ft.Container(width=70)
-    ticker1 = ft.TextField(label='Ticker 1', width=130, value='AL30')
-    ticker2 = ft.TextField(label='Ticker 2', width=130, value='AL30D')
-    fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)', width=200, value='2022-01-01')
-    fecha_fin = ft.TextField(label='Fecha Hasta (aaaa-mm-dd)', width=200, value=hoy)
-    boton = ft.OutlinedButton('Calcular Ratio', width=200, on_click=calcula_ratio)
+    ticker1 = ft.TextField(label='Ticker 1',
+                           width=130,
+                           value='AL30',)
+    ticker2 = ft.TextField(label='Ticker 2',
+                           width=130,
+                           value='AL30D')
+    fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)',
+                             width=200,
+                             value='2022-01-01')
+    fecha_fin = ft.TextField(label='Fecha Hasta (aaaa-mm-dd)',
+                             width=200,
+                             value=hoy)
+    boton = ft.OutlinedButton('Calcular Ratio',
+                              width=200,
+                              on_click=calcula_ratio)
 
     filas_datos = ft.Row(controls=[
         espacio,
@@ -80,7 +90,11 @@ def main(page: ft.Page):
     progreso = ft.ProgressBar(width=1000,visible=False)
 
     col = ft.Column(controls=[
-        ft.Text("Calculadora de Ratios\n", size=25, color=ft.colors.WHITE, text_align='CENTER',weight=1000),
+        ft.Text("Calculadora de Ratios\n",
+                size=25,
+                color=ft.colors.WHITE,
+                text_align='CENTER',
+                weight=1000,),
         datos,
         progreso,
         ft.Text("Los tickers de los distintos tipos de dolar son:\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL",
