@@ -6,7 +6,6 @@ import flet as ft
 
 def main(page: ft.Page):
     hoy = dt.date.today()
-    fig = px.line()
     page.title = "Calculador de Ratios"
     page.horizontal_alignment = 'CENTER'
     page.vertical_alignment = "TOP"
@@ -48,7 +47,7 @@ def main(page: ft.Page):
             historico_activo2 =  fa.rava.get_history(ticker2.value,
                                                     fecha_ini.value,
                                                     fecha_fin.value,)
-                                                    
+
         except:
             abrir_alerta()
             habilitar_controles()
