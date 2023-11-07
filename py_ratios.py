@@ -94,7 +94,6 @@ def main(page: ft.Page):
 
     fig = px.line(width=1900, height=750, )
     chart = PlotlyChart(fig, expand=True, )
-#    grafico = ft.Tabs(tabs=[ft.Tab(text='', content=chart, )], disabled=True, scrollable=False, )
     grafico = ft.Container(content=chart, alignment=ft.alignment.center)
 
     col = ft.Column(controls=[
