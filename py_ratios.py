@@ -2,16 +2,19 @@ import datetime as dt
 import Fallen as fa
 import plotly.express as px
 import flet as ft
+from flet.plotly_chart import PlotlyChart
 
 def main(page: ft.Page):
-    hoy = dt.date.today()
-    page.title = "Calculador de Ratios"
-    page.horizontal_alignment = 'CENTER'
-    page.vertical_alignment = "TOP"
 
-    alerta = ft.AlertDialog(
-        title=ft.Text("¡Error en los datos ingresados!\nTicker no válido")
-    )
+    hoy = dt.date.today()
+    titulo = ''
+    page.title = 'Calculadora de Ratios'
+    page.horizontal_alignment = ft.alignment.center
+    page.vertical_alignment = ft.alignment.top_center
+    page.auto_scroll = True
+    page.window_maximized = True
+    alerta = ft.AlertDialog(title=ft.Text('¡Error en los datos ingresados!\n'\
+                                          'Ticker no Encontrado.'))
 
     def abrir_alerta():
         page.dialog = alerta
@@ -20,12 +23,14 @@ def main(page: ft.Page):
 
     def habilitar_controles():
         progreso.visible = False
-        datos.disabled = False
+        filas_datos.disabled = False
+        boton_calcular.disabled = False
         page.update()
 
     def calcula_ratio(e):
         progreso.visible = True
-        datos.disabled = True
+        filas_datos.disabled = True
+        boton_calcular.disabled = True
         page.update()
 
         try:
@@ -51,57 +56,63 @@ def main(page: ft.Page):
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
         titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
-        fig = px.line(ratio, x='date', y='ratio', title=titulo)
+        fig = px.line(ratio, x='date', y='ratio', width=1900, height=750, title=titulo, )
         fig.add_hline(ratio['ratio'].mean(),)
-        fig.show()
+        chart = PlotlyChart(fig, expand=True, )
+        if(ver_grafico.value==True):
+            fig.show()
+
+        col.controls.pop(5)
+        grafico = ft.Container(content=chart, alignment=ft.alignment.center)
+        col.controls.append(grafico)
         habilitar_controles()
 
-    espacio = ft.Container(width=70)
+    def mostrar_grafico(e):
+        fig.show()
+
     ticker1 = ft.TextField(label='Ticker 1',
-                           width=130,
                            value='AL30',)
     ticker2 = ft.TextField(label='Ticker 2',
-                           width=130,
                            value='AL30D')
     fecha_ini = ft.TextField(label='Fecha Desde (aaaa-mm-dd)',
-                             width=200,
                              value='2022-01-01')
     fecha_fin = ft.TextField(label='Fecha Hasta (aaaa-mm-dd)',
-                             width=200,
                              value=hoy)
-    boton = ft.OutlinedButton('Calcular Ratio',
-                              width=200,
-                              on_click=calcula_ratio)
 
-    filas_datos = ft.Row(controls=[espacio,
-                                   ticker1,
+    filas_datos = ft.Row(controls=[ticker1,
                                    ticker2,
                                    fecha_ini,
                                    fecha_fin,
-                                   boton,
-                                   ])
+                                   ], alignment=ft.MainAxisAlignment.CENTER, )
+    
+    boton_calcular = ft.ElevatedButton('Calcular Ratio', on_click=calcula_ratio, scale=1.5, color=ft.colors.WHITE, )
+    contenedor_boton_calcular = ft.Container(content=boton_calcular, alignment=ft.alignment.center, margin=10)
+    
+    ver_grafico = ft.Switch(label='Ver grafico completo', value=False)
 
-    datos = ft.Container(filas_datos)
-    progreso = ft.ProgressBar(width=1000,visible=False)
+    progreso = ft.ProgressBar(visible=False)
+
+    fig = px.line(width=1900, height=750, )
+    chart = PlotlyChart(fig, expand=True, )
+#    grafico = ft.Tabs(tabs=[ft.Tab(text='', content=chart, )], disabled=True, scrollable=False, )
+    grafico = ft.Container(content=chart, alignment=ft.alignment.center)
 
     col = ft.Column(controls=[
         ft.Text("Calculadora de Ratios\n",
                 size=25,
                 color=ft.colors.WHITE,
-                text_align='CENTER',
-                weight=1000,),
-        datos,
+                text_align='CENTER',),
+        filas_datos,
+        contenedor_boton_calcular,
         progreso,
-        ft.Text('Los tickers de los distintos tipos de dolar son:'\
-                '\n \n  *DOLAR OFICIAL\n  *DOLAR MEP\n  *DOLAR CCL',
-                size=15,
-                color=ft.colors.WHITE,
-                ),
-    ])
+        ver_grafico,
+        grafico,
+    ], horizontal_alignment=ft.alignment.center, )
 
     contenedor = ft.Container(col)
 
     page.add(
         contenedor,
     )
-ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+
+ft.app(target=main)
