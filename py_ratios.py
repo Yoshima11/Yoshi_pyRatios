@@ -8,13 +8,13 @@ def main(page: ft.Page):
 
     hoy = dt.date.today()
     titulo = ''
-    page.title = 'Calculador de Ratios'
+    page.title = 'Calculadora de Ratios'
     page.horizontal_alignment = ft.alignment.center
     page.vertical_alignment = ft.alignment.top_center
     page.auto_scroll = True
     page.window_maximized = True
     alerta = ft.AlertDialog(title=ft.Text('¡Error en los datos ingresados!\n'\
-                                          'Ticker no válido'))
+                                          'Ticker no Encontrado.'))
 
     def abrir_alerta():
         page.dialog = alerta
@@ -56,13 +56,19 @@ def main(page: ft.Page):
         ratio = historico_activo1.merge(historico_activo2, how='inner', on=['date'])
         ratio['ratio'] = ratio['close_x'] / ratio['close_y']
         titulo = f'Ratio {ticker1.value.upper()}/{ticker2.value.upper()}'
-        fig = px.line(ratio, x='date', y='ratio', width=1800, height=700, )
+        fig = px.line(ratio, x='date', y='ratio', width=1900, height=750, title=titulo, )
         fig.add_hline(ratio['ratio'].mean(),)
-        chart = PlotlyChart(fig, expand=True,)
-        grafico.tabs.append(ft.Tab(text=titulo, content=chart))
-        grafico.selected_index = boton_calcular.data
-        boton_calcular.data +=1
+        chart = PlotlyChart(fig, expand=True, )
+        if(ver_grafico.value==True):
+            fig.show()
+
+        col.controls.pop(5)
+        grafico = ft.Container(content=chart, alignment=ft.alignment.center)
+        col.controls.append(grafico)
         habilitar_controles()
+
+    def mostrar_grafico(e):
+        fig.show()
 
     ticker1 = ft.TextField(label='Ticker 1',
                            value='AL30',)
@@ -78,27 +84,18 @@ def main(page: ft.Page):
                                    fecha_ini,
                                    fecha_fin,
                                    ], alignment=ft.MainAxisAlignment.CENTER, )
+    
+    boton_calcular = ft.ElevatedButton('Calcular Ratio', on_click=calcula_ratio, scale=1.5, color=ft.colors.WHITE, )
+    contenedor_boton_calcular = ft.Container(content=boton_calcular, alignment=ft.alignment.center, margin=10)
+    
+    ver_grafico = ft.Switch(label='Ver grafico completo', value=False)
 
-    boton_calcular = ft.TextButton(
-                            content=ft.Container(
-                                            content=ft.Text(
-                                                'Calcular Ratio',
-                                                size=20,
-                                                style=ft.TextThemeStyle.TITLE_MEDIUM,
-                                                text_align=ft.TextAlign.CENTER,
-                                                
-                                            ),
-                                            alignment=ft.alignment.center,
-                            ),
-                            on_click=calcula_ratio,
-                            data=0,
-                     )
     progreso = ft.ProgressBar(visible=False)
 
-    fig = px.line()
-    chart = PlotlyChart(fig, expand=True, isolated=True)
-    grafico = ft.Tabs(expand=1, scrollable=False, indicator_tab_size=True)
-    cont_grafico = ft.Container(content=grafico, )
+    fig = px.line(width=1900, height=750, )
+    chart = PlotlyChart(fig, expand=True, )
+#    grafico = ft.Tabs(tabs=[ft.Tab(text='', content=chart, )], disabled=True, scrollable=False, )
+    grafico = ft.Container(content=chart, alignment=ft.alignment.center)
 
     col = ft.Column(controls=[
         ft.Text("Calculadora de Ratios\n",
@@ -106,9 +103,10 @@ def main(page: ft.Page):
                 color=ft.colors.WHITE,
                 text_align='CENTER',),
         filas_datos,
-        boton_calcular,
+        contenedor_boton_calcular,
         progreso,
-        cont_grafico,
+        ver_grafico,
+        grafico,
     ], horizontal_alignment=ft.alignment.center, )
 
     contenedor = ft.Container(col)
@@ -116,4 +114,5 @@ def main(page: ft.Page):
     page.add(
         contenedor,
     )
+
 ft.app(target=main)
