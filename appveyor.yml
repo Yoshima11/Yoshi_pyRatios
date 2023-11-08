@@ -35,10 +35,10 @@ for:
     - image: Visual Studio 2019
 
   after_build:
-  - 7z a counter-windows.zip %CD%\dist\*.exe
+  - 7z a py-ratios-windows.zip %CD%\dist\*.exe
 
   artifacts:
-  - path: counter-windows.zip
+  - path: py-ratios-windows.zip
 
 #
 #   macOS package
@@ -49,10 +49,10 @@ for:
     - image: macOS
 
   after_build:
-  - tar -czvf counter-macos.tar.gz -C dist counter.app
+  - tar -czvf py-ratios-macos.tar.gz -C dist counter.app
 
   artifacts:
-  - path: counter-macos.tar.gz
+  - path: pyratios-macos.tar.gz
 
 #
 #   Linux package
@@ -63,7 +63,7 @@ for:
     - image: Ubuntu
 
   after_build:
-  - tar -czvf counter-linux.tar.gz -C dist counter
+  - tar -czvf py-ratios-linux.tar.gz -C dist counter
 
   artifacts:
-  - path: counter-linux.tar.gz
+  - path: py-ratios-linux.tar.gz
