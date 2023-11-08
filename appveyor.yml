@@ -1,14 +1,14 @@
 image:
 - Previous Visual Studio 2019
-#- macOS
-#- Ubuntu
+- macOS
+- Ubuntu
 
 skip_branch_with_pr: true
 stack: python 3.10
 
 environment:
   GITHUB_TOKEN:
-    secure: qVxHdHEOZuIp/koD1XaNnY4Dqsf23XxOmmlVsNvHEZUFd8L4VBy5AkJghsy4hW/1MajAoqAQ4RV2SWuBGaSMSay/WKAM/Y8r3UIiQfnX2+eKloVt2GggpIHojdNbEUhg
+    secure: dskmrg5GjpreDNGkwB6j2MZf33wcKcjZL5nOyea2l6/0mcA9Y2pPJmEjSCGLudPj
 
 install:
 - pip install -r requirements.txt
@@ -44,27 +44,27 @@ for:
 #
 #   macOS package
 # 
-#-
-#  matrix:
-#    only:
-#    - image: macOS
-#
-#  after_build:
-#  - tar -czvf py-ratios-macos.tar.gz -C dist py-ratios.app
-#
-#  artifacts:
-#  - path: pyratios-macos.tar.gz
+-
+  matrix:
+    only:
+    - image: macOS
+
+  after_build:
+  - tar -czvf py-ratios-macos.tar.gz -C dist py-ratios.app
+
+  artifacts:
+  - path: pyratios-macos.tar.gz
 
 #
 #   Linux package
 # 
-#-
-#  matrix:
-#    only:
-#    - image: Ubuntu
-#
-#  after_build:
-# - tar -czvf py-ratios-linux.tar.gz -C dist counter
-#
-#  artifacts:
-#  - path: py-ratios-linux.tar.gz
+-
+  matrix:
+    only:
+    - image: Ubuntu
+
+  after_build:
+  - tar -czvf py-ratios-linux.tar.gz -C dist counter
+
+  artifacts:
+  - path: py-ratios-linux.tar.gz
