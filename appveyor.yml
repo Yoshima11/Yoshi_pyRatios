@@ -32,7 +32,7 @@ for:
 -
   matrix:
     only:
-    - image: Visual Studio 2019
+    - image: Visual Studio 2022
 
   after_build:
   - 7z a py-ratios-windows.zip %CD%\dist\*.exe
