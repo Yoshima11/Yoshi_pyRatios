@@ -64,7 +64,7 @@ for:
     - image: Ubuntu
 
   after_build:
-  - tar -czvf py-ratios-linux.tar.gz -C dist counter
+  - tar -czvf py-ratios-linux.tar.gz -C dist py-ratios
 
   artifacts:
   - path: py-ratios-linux.tar.gz
