@@ -73,9 +73,6 @@ def main(page: ft.Page):
         )
         fig.add_hline(ratio['ratio'].mean(),)
         chart = PlotlyChart(fig, expand=True, )
-        if(ver_grafico.value==True):
-            fig.show()
-
         col.controls.pop(5)
         grafico = ft.Container(
             content=chart,
@@ -125,10 +122,6 @@ def main(page: ft.Page):
         content=boton_calcular,
         alignment=ft.alignment.center,
         margin=10,
-    )   
-    ver_grafico = ft.Switch(
-        label='Ver grafico completo',
-        value=False,
     )
     progreso = ft.ProgressBar(
         visible=False,
