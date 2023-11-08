@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2019
-- macOS
+#- macOS
 #- Ubuntu
 
 skip_branch_with_pr: true
@@ -44,16 +44,16 @@ for:
 #
 #   macOS package
 # 
--
-  matrix:
-    only:
-    - image: macOS
-
-  after_build:
-  - tar -czvf py-ratios-macos.tar.gz -C dist py-ratios.app
-
-  artifacts:
-  - path: pyratios-macos.tar.gz
+#-
+#  matrix:
+#    only:
+#    - image: macOS
+#
+#  after_build:
+#  - tar -czvf py-ratios-macos.tar.gz -C dist py-ratios.app
+#
+#  artifacts:
+#  - path: pyratios-macos.tar.gz
 
 #
 #   Linux package
