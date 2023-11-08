@@ -8,13 +8,13 @@ stack: python 3.10
 
 environment:
   GITHUB_TOKEN:
-    secure: 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
+    secure: qVxHdHEOZuIp/koD1XaNnRE+rzVye8zPvTNYKwIBBI4gn9m9p92esysQOxdiskAfnJn7GYQUHTouvlSoaWIblxOxaEX8o+p4OUZ4Os+4Nbzne8O9L/Rw02c+Y2JnbRYh
 
 install:
 - pip install -r requirements.txt
 
 build_script:
-- flet pack py_ratios.py --name counter --icon icon.png --product-name py-ratios --product-version "1.0.0" --copyright "Copyright (c) 2023 YourCompany Inc."
+- flet pack py_ratios.py --name py-ratios --icon icon.png --product-name py-ratios --product-version "1.0.0" --copyright "Copyright (c) 2023 YourCompany Inc."
 
 test: off
 
@@ -30,6 +30,7 @@ deploy:
 # 
 for:
 -
+
   matrix:
     only:
     - image: Visual Studio 2022
