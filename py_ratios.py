@@ -73,7 +73,7 @@ def main(page: ft.Page):
         )
         fig.add_hline(ratio['ratio'].mean(),)
         chart = PlotlyChart(fig, expand=True, )
-        col.controls.pop(5)
+        col.controls.pop(4)
         grafico = ft.Container(
             content=chart,
             alignment=ft.alignment.center
@@ -149,7 +149,6 @@ def main(page: ft.Page):
             filas_datos,
             contenedor_boton_calcular,
             progreso,
-            ver_grafico,
             grafico,
         ],
         horizontal_alignment=ft.alignment.center,
